@@ -1,9 +1,8 @@
 package com.imc.rockpaperscissor.factory;
 
+import com.imc.rockpaperscissor.wrapper.ScannerWrapper;
 import com.imc.rockpaperscissor.domain.Player;
 
-import java.util.Scanner;
-
 public interface PlayerFactory {
-    Player createPlayer(String name, Scanner scanner);
+    Player createPlayer(String name, ScannerWrapper scanner);
 }

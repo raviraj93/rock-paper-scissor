@@ -1,5 +1,8 @@
 package com.imc.rockpaperscissor.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum GameMove {
     ROCK(1),
     PAPER(2),
@@ -11,7 +14,4 @@ public enum GameMove {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
 }

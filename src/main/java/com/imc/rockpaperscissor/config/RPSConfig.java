@@ -1,17 +1,14 @@
 package com.imc.rockpaperscissor.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Random;
+import java.util.Scanner;
 
 @Configuration
-public class RPSConfiguration {
-
+public class RPSConfig {
     @Bean
-    public Random random() {
-        return new Random();
+    public Scanner scanner() {
+        return new Scanner(System.in);
     }
-
 }

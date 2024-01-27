@@ -1,5 +1,6 @@
 package com.imc.rockpaperscissor;
 
+import com.imc.rockpaperscissor.wrapper.ScannerWrapper;
 import com.imc.rockpaperscissor.domain.Player;
 import com.imc.rockpaperscissor.factory.PlayerFactory;
 import com.imc.rockpaperscissor.service.GameService;
@@ -8,8 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Scanner;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class RockPaperScissorsApplication implements CommandLineRunner {
@@ -17,6 +17,8 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
     private final GameService gameService;
     private final PlayerFactory humanPlayerFactory;
     private final PlayerFactory computerPlayerFactory;
+
+    private final ScannerWrapper scannerWrapper;
     private static final String COMPUTER = "COMPUTER";
 
 
@@ -24,10 +26,11 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
     public RockPaperScissorsApplication(
             @Qualifier("humanPlayerFactory") PlayerFactory humanPlayerFactory,
             @Qualifier("computerPlayerFactory") PlayerFactory computerPlayerFactory,
-            GameService gameService) {
+            GameService gameService, @Qualifier("scannerWrapperImpl") ScannerWrapper scannerWrapper) {
         this.humanPlayerFactory = humanPlayerFactory;
         this.computerPlayerFactory = computerPlayerFactory;
         this.gameService = gameService;
+        this.scannerWrapper = scannerWrapper;
     }
 
     public static void main(String[] args) {
@@ -36,13 +39,12 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Scanner scanner = new Scanner(System.in);
 
-        String playerName = getPlayerName(scanner);
-        Player humanPlayer = humanPlayerFactory.createPlayer(playerName, scanner);
-        Player computerPlayer = computerPlayerFactory.createPlayer(COMPUTER, scanner);
+        String playerName = getPlayerName();
+        Player humanPlayer = humanPlayerFactory.createPlayer(playerName, scannerWrapper);
+        Player computerPlayer = computerPlayerFactory.createPlayer(COMPUTER, scannerWrapper);
 
-        int numberOfRounds = getNumberOfRounds(scanner);
+        int numberOfRounds = getNumberOfRounds();
 
         gameService.playGame(humanPlayer, computerPlayer, numberOfRounds);
 
@@ -50,14 +52,14 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
         System.exit(1);
     }
 
-    private String getPlayerName(Scanner scanner) {
+    public String getPlayerName() {
         System.out.println("Hello Player!!, Please enter your name to start the Game: ");
-        return scanner.nextLine();
+        return scannerWrapper.nextLine();
     }
 
 
-    private int getNumberOfRounds(Scanner scanner) {
+    public int getNumberOfRounds() {
         System.out.println("Enter the number of rounds to play:");
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scannerWrapper.nextLine());
     }
 }

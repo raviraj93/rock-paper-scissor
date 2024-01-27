@@ -1,5 +1,6 @@
 package com.imc.rockpaperscissor.domain.impl;
 
+import com.imc.rockpaperscissor.config.RandomProvider;
 import com.imc.rockpaperscissor.domain.GameMove;
 import com.imc.rockpaperscissor.domain.Player;
 import lombok.AllArgsConstructor;
@@ -11,11 +12,11 @@ import java.util.Random;
 public class ComputerPlayer implements Player {
     @Getter
     private final String name;
-    private final Random random;
+    private final RandomProvider randomProvider;
 
     @Override
     public GameMove makeMove() {
-        int randomIndex = random.nextInt(GameMove.values().length);
+        int randomIndex = randomProvider.nextInt(GameMove.values().length);
         return GameMove.values()[randomIndex];
     }
 }
