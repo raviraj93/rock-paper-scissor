@@ -5,7 +5,7 @@ This is a simple Rock Paper Scissors game implemented in Java using Spring Boot.
 ## Features
 
 - Human vs. Computer gameplay.
-- Limited attempts for the user to enter a valid move.
+- Limited and configurable attempts for the user to enter a valid move.
 - Round-based gameplay with configurable number of rounds.
 - To have the proper testability, we have used wrapper for scanner and Random classes.
 

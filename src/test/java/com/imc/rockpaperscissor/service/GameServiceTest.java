@@ -39,7 +39,7 @@ public class GameServiceTest {
         System.setOut(new PrintStream(systemOutContent));
         gameService = new GameService(scoringStrategy);
 
-        when(humanPlayer.getName()).thenReturn("Alice");
+        when(humanPlayer.getName()).thenReturn("Raviraj");
         when(computerPlayer.getName()).thenReturn("Computer");
     }
 
@@ -78,7 +78,7 @@ public class GameServiceTest {
         verify(computerPlayer, times(1)).makeMove();
         verify(humanPlayer, times(1)).makeMove();
 
-        String expectedMessage = "Round 1\nComputer choose SCISSORS\nAlice wins!\n";
+        String expectedMessage = "Round 1\nComputer choose SCISSORS\nRaviraj wins!\n";
         assertEquals(expectedMessage, systemOutContent.toString());
     }
 

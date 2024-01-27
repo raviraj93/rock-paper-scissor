@@ -23,13 +23,13 @@ public class HumanPlayerTest {
     void setUp() {
         InputStream inputStream = new ByteArrayInputStream("ROCK".getBytes());
         scanner = new ScannerWrapperImpl(new Scanner(inputStream));
-        humanPlayer = new HumanPlayer("Alice", scanner, 3);
+        humanPlayer = new HumanPlayer("Raviraj", scanner, 3);
     }
 
     @Test
     void testGetName() {
         String result = humanPlayer.getName();
-        assertEquals("Alice", result);
+        assertEquals("Raviraj", result);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class HumanPlayerTest {
     void testInvalidMove() {
         InputStream inputStream = new ByteArrayInputStream("INVALID\nROCK".getBytes());
         scanner = new ScannerWrapperImpl(new Scanner(inputStream));
-        humanPlayer = new HumanPlayer("Alice", scanner, 3);
+        humanPlayer = new HumanPlayer("Raviraj", scanner, 3);
 
         GameMove result = humanPlayer.makeMove();
 
@@ -54,7 +54,7 @@ public class HumanPlayerTest {
     void testExceedMaxAttempts() {
         InputStream inputStream = new ByteArrayInputStream("INVALID\nINVALID\nINVALID\n".getBytes());
         scanner =new ScannerWrapperImpl(new Scanner(inputStream));
-        humanPlayer = new HumanPlayer("Alice", scanner, 2);
+        humanPlayer = new HumanPlayer("Raviraj", scanner, 2);
 
         assertThrows(InvalidMoveException.class, () -> humanPlayer.makeMove());
     }

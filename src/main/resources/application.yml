@@ -1,2 +1,7 @@
 game:
   max_attempts: 5
+  number_of_rounds: 1
+
+player:
+  computer:
+    name: COMPUTER

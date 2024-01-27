@@ -6,9 +6,12 @@ import com.imc.rockpaperscissor.service.GameService;
 import com.imc.rockpaperscissor.wrapper.ScannerWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import static java.util.Objects.isNull;
 
 @SpringBootApplication
 public class RockPaperScissorsApplication implements CommandLineRunner {
@@ -18,14 +21,20 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
     private final PlayerFactory computerPlayerFactory;
 
     private final ScannerWrapper scannerWrapper;
-    private static final String COMPUTER = "COMPUTER";
+
+    @Value("${player.computer.name}")
+    private String secondPlayerName;
+
+    @Value("${game.number_of_rounds}")
+    private String numberOfRounds;
 
 
     @Autowired
     public RockPaperScissorsApplication(
             @Qualifier("humanPlayerFactory") PlayerFactory humanPlayerFactory,
             @Qualifier("computerPlayerFactory") PlayerFactory computerPlayerFactory,
-            GameService gameService, @Qualifier("scannerWrapperImpl") ScannerWrapper scannerWrapper) {
+            GameService gameService,
+            @Qualifier("scannerWrapperImpl") ScannerWrapper scannerWrapper) {
         this.humanPlayerFactory = humanPlayerFactory;
         this.computerPlayerFactory = computerPlayerFactory;
         this.gameService = gameService;
@@ -41,7 +50,7 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
 
         String playerName = getPlayerName();
         Player humanPlayer = humanPlayerFactory.createPlayer(playerName, scannerWrapper);
-        Player computerPlayer = computerPlayerFactory.createPlayer(COMPUTER, scannerWrapper);
+        Player computerPlayer = computerPlayerFactory.createPlayer(secondPlayerName, null);
 
         int numberOfRounds = getNumberOfRounds();
 
@@ -59,6 +68,10 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
 
     public int getNumberOfRounds() {
         System.out.println("Enter the number of rounds to play:");
-        return Integer.parseInt(scannerWrapper.nextLine());
+        String input = scannerWrapper.nextLine();
+        if(isNull(input) || input.isEmpty()){
+            input = numberOfRounds;
+        }
+        return Integer.parseInt(input);
     }
 }

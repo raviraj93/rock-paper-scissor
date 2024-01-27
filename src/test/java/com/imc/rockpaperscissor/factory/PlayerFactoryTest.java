@@ -35,7 +35,7 @@ class PlayerFactoryTest {
 
         PlayerFactory playerFactory = new HumanPlayerFactory();
 
-        Player humanPlayer = playerFactory.createPlayer("Alice", scanner);
+        Player humanPlayer = playerFactory.createPlayer("Raviraj", scanner);
 
         assertNotNull(humanPlayer);
 
