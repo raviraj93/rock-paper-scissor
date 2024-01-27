@@ -4,7 +4,7 @@ plugins {
     id ("java")
 }
 
-group = "com.imc"
+group = "com.imc.rockpaperscissor"
 version = "1.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.projectlombok:lombok:1.18.28")
     testImplementation("junit:junit:4.13.1")
 
     compileOnly ("org.projectlombok:lombok:1.18.30")
