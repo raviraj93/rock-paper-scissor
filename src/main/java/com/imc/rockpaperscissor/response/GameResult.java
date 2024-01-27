@@ -2,17 +2,18 @@ package com.imc.rockpaperscissor.response;
 
 import lombok.Getter;
 
-@Getter
 public enum GameResult {
-    WIN_PLAYER_1("Player 1 wins!"),
-    WIN_PLAYER_2("Player 2 wins!"),
-    TIE("It's a tie!");
+    WIN_PLAYER_1,
+    WIN_PLAYER_2,
+    TIE;
 
-    private final String message;
-
-    GameResult(String message) {
-        this.message = message;
+    public String getMessage(String playerName1, String playerName2) {
+        return switch (this) {
+            case WIN_PLAYER_1 -> String.format("%s wins!", playerName1);
+            case WIN_PLAYER_2 -> String.format("%s wins!", playerName2);
+            default -> "It's a tie!";
+        };
     }
-
 }
+
 

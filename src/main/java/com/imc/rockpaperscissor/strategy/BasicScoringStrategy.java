@@ -2,7 +2,9 @@ package com.imc.rockpaperscissor.strategy;
 
 import com.imc.rockpaperscissor.domain.GameMove;
 import com.imc.rockpaperscissor.response.GameResult;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BasicScoringStrategy implements ScoringStrategy {
 
     @Override

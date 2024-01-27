@@ -3,7 +3,9 @@ package com.imc.rockpaperscissor.service;
 import com.imc.rockpaperscissor.domain.GameMove;
 import com.imc.rockpaperscissor.response.GameResult;
 import com.imc.rockpaperscissor.strategy.ScoringStrategy;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameService {
     private final ScoringStrategy scoringStrategy;
 
