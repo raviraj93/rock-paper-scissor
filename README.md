@@ -28,5 +28,11 @@ Go to the project directory and run the following commands:
 
 ```shellscript
 gradle clean build   or ./gradlew clean build
+```
+
+- run the command the project
+```shellscript
 java -jar build/libs/rock-paper-scissor-1.0-SNAPSHOT.jar
-   
+ ```  
+- enter the desired values.
+- Enjoy
