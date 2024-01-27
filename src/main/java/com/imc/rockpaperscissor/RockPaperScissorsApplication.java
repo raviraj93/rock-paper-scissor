@@ -5,7 +5,6 @@ import com.imc.rockpaperscissor.domain.Player;
 import com.imc.rockpaperscissor.domain.impl.ComputerPlayer;
 import com.imc.rockpaperscissor.domain.impl.HumanPlayer;
 import com.imc.rockpaperscissor.exception.InvalidMoveException;
-import com.imc.rockpaperscissor.request.GameRequest;
 import com.imc.rockpaperscissor.response.GameResult;
 import com.imc.rockpaperscissor.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +42,38 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
     public void run(String... args) {
         Scanner scanner = new Scanner(System.in);
 
+        String playerName = getPlayerName(scanner);
+        Player humanPlayer = createHumanPlayer(playerName, scanner);
+        Player computerPlayer = createComputerPlayer();
+
+        int numberOfRounds = getNumberOfRounds(scanner);
+
+        playGame(humanPlayer, computerPlayer, numberOfRounds);
+
+        System.out.println("Game ended. Thanks for playing!");
+        System.exit(1);
+    }
+
+    private String getPlayerName(Scanner scanner) {
         System.out.println("Hello Player!!, Please enter your name to start the Game: ");
-        String playerName = scanner.nextLine();
+        return scanner.nextLine();
+    }
 
+    private Player createHumanPlayer(String playerName, Scanner scanner) {
         System.out.printf("Hello %s !!%n", playerName);
-        Player humanPlayer = new HumanPlayer(playerName, scanner, maxAttempts);
-        Player computerPlayer = new ComputerPlayer(COMPUTER, random);
+        return new HumanPlayer(playerName, scanner, maxAttempts);
+    }
 
+    private Player createComputerPlayer() {
+        return new ComputerPlayer(COMPUTER, random);
+    }
 
-
+    private int getNumberOfRounds(Scanner scanner) {
         System.out.println("Enter the number of rounds to play:");
-        int numberOfRounds = Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine());
+    }
 
-
+    private void playGame(Player humanPlayer, Player computerPlayer, int numberOfRounds) {
         for (int round = 1; round <= numberOfRounds; round++) {
             System.out.printf("Round %d%n", round);
 
@@ -66,14 +84,12 @@ public class RockPaperScissorsApplication implements CommandLineRunner {
                 System.out.println(e.getMessage());
                 continue;
             }
+
             GameMove computerMove = computerPlayer.makeMove();
+            System.out.println("Computer choose " + computerMove.name());
 
             GameResult result = gameService.playRound(userMove, computerMove);
             System.out.println(result.getMessage(humanPlayer.getName(), computerPlayer.getName()));
-
         }
-
-        System.out.println("Game ended. Thanks for playing!");
-        System.exit(1);
     }
 }
