@@ -14,4 +14,5 @@ public class GameService {
     public GameResult playRound(GameMove movePlayer1, GameMove movePlayer2) {
         return scoringStrategy.determineWinner(movePlayer1, movePlayer2);
     }
+
 }
